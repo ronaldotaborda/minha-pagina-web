@@ -2,16 +2,330 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Página Web</title>
-    <script>
-        function executarLogica() {
-            alert("Lógica da macro executada!");
+    <title>Quadra 1 - Tabela Interativa</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
         }
-    </script>
+        th, td {
+            padding: 10px;
+            min-width: 100px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Executar Macro do Excel</h1>
-    <button onclick="executarLogica()">Executar</button>
+    <h2>Quadra 1 - Coberta</h2>
+    <div class="form-container">
+        <form id="dataForm">
+            <label for="dia">Dia:</label>
+            <select id="dia">
+                <option value="1">Segunda-Feira</option>
+                <option value="2">Terça-Feira</option>
+                <option value="3">Quarta-Feira</option>
+                <option value="4">Quinta-Feira</option>
+                <option value="5">Sexta-Feira</option>
+                <option value="6">Sábado</option>
+                <option value="7">Domingo</option>
+            </select>
+            <label for="hora">Horário:</label>
+            <select id="hora">
+                <option value="1">07:00 - 08:00</option>
+                <option value="2">08:00 - 09:00</option>
+                <option value="3">09:00 - 10:00</option>
+                <option value="4">10:00 - 11:00</option>
+                <option value="5">11:00 - 12:00</option>
+                <option value="6">12:00 - 13:00</option>
+                <option value="7">13:00 - 14:00</option>
+                <option value="8">14:00 - 15:00</option>
+                <option value="9">15:00 - 16:00</option>
+                <option value="10">16:00 - 17:00</option>
+                <option value="11">17:00 - 18:00</option>
+                <option value="12">18:00 - 19:00</option>
+                <option value="13">19:00 - 20:00</option>
+                <option value="14">20:00 - 21:00</option>
+                <option value="15">21:00 - 22:00</option>
+                <option value="16">22:00 - 23:00</option>
+            </select>
+            <label for="valor">Valor:</label>
+            <input type="text" id="valor" placeholder="Insira o valor">
+            <button type="button" onclick="atualizarTabela()">Adicionar</button>
+        </form>
+    </div>
+    <table id="tabelaQuadra">
+        <tr>
+            <th>Horário</th>
+            <th>26/set</th>
+            <th>24/set</th>
+            <th>25/set</th>
+            <th>26/set</th>
+            <th>27/set</th>
+            <th>28/set</th>
+            <th>29/set</th>
+            <th>Horário</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>Segunda-Feira</th>
+            <th>Terça-Feira</th>
+            <th>Quarta-Feira</th>
+            <th>Quinta-Feira</th>
+            <th>Sexta-Feira</th>
+            <th>Sábado</th>
+            <th>Domingo</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>07:00 - 08:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>07:00 - 08:00</td>
+        </tr>
+        <tr>
+            <td>08:00 - 09:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>08:00 - 09:00</td>
+        </tr>
+        <tr>
+            <td>09:00 - 10:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>09:00 - 10:00</td>
+        </tr>
+        <tr>
+            <td>10:00 - 11:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>10:00 - 11:00</td>
+        </tr>
+        <tr>
+            <td>11:00 - 12:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>11:00 - 12:00</td>
+        </tr>
+        <tr>
+            <td>12:00 - 13:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>12:00 - 13:00</td>
+        </tr>
+        <tr>
+            <td>13:00 - 14:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>13:00 - 14:00</td>
+        </tr>
+        <tr>
+            <td>14:00 - 15:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>14:00 - 15:00</td>
+        </tr>
+        <tr>
+            <td>15:00 - 16:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>15:00 - 16:00</td>
+        </tr>
+        <tr>
+            <td>16:00 - 17:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>16:00 - 17:00</td>
+        </tr>
+        <tr>
+            <td>17:00 - 18:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>17:00 - 18:00</td>
+        </tr>
+        <tr>
+            <td>18:00 - 19:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>18:00 - 19:00</td>
+        </tr>
+        <tr>
+            <td>19:00 - 20:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>19:00 - 20:00</td>
+        </tr>
+        <tr>
+            <td>20:00 - 21:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>20:00 - 21:00</td>
+        </tr>
+        <tr>
+            <td>21:00 - 22:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>21:00 - 22:00</td>
+        </tr>
+        <tr>
+            <td>22:00 - 23:00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>22:00 - 23:00</td>
+        </tr>
+    </table>
+    <script>
+    // Função para salvar as marcações no LocalStorage
+    function salvarNoLocalStorage(dia, hora, valor) {
+        // Pega os dados existentes ou cria uma nova lista se não houver dados
+        var dados = JSON.parse(localStorage.getItem('dadosTabela')) || [];
+        
+        // Adiciona a nova marcação na lista
+        dados.push({ dia: dia, hora: hora, valor: valor });
+
+        // Salva a lista atualizada no LocalStorage
+        localStorage.setItem('dadosTabela', JSON.stringify(dados));
+    }
+
+    // Função para carregar os dados do LocalStorage ao carregar a página
+    function carregarTabela() {
+        var dados = JSON.parse(localStorage.getItem('dadosTabela')) || [];
+
+        // Percorre todos os dados e os insere na tabela
+        dados.forEach(function(item) {
+            var linhaTabela = parseInt(item.hora);
+            var colunaTabela = parseInt(item.dia);
+            document.getElementById("tabelaQuadra").rows[linhaTabela + 1].cells[colunaTabela].innerText = item.valor;
+        });
+    }
+
+    // Função para adicionar dados à tabela e salvar no LocalStorage
+    function atualizarTabela() {
+        // Obtém os valores selecionados no formulário
+        var dia = document.getElementById("dia").value;
+        var hora = document.getElementById("hora").value;
+        var valor = document.getElementById("valor").value;
+
+        // Verifica se o valor foi preenchido
+        if (!valor) {
+            alert("Por favor, insira um valor.");
+            return;  // Impede que o código continue se o valor estiver vazio
+        }
+
+        // Ajusta o índice da linha (horário) e da coluna (dia)
+        var linhaTabela = parseInt(hora);  // A linha corresponde ao horário
+        var colunaTabela = parseInt(dia);  // A coluna corresponde ao dia
+
+        // Atualiza a célula correspondente na tabela com o valor inserido
+        document.getElementById("tabelaQuadra").rows[linhaTabela + 1].cells[colunaTabela].innerText = valor;
+
+        // Salva os dados no LocalStorage
+        salvarNoLocalStorage(dia, hora, valor);
+
+        // Limpa o campo de valor para a próxima inserção
+        document.getElementById("valor").value = "";
+    }
+
+    // Carrega os dados do LocalStorage ao iniciar a página
+    window.onload = function() {
+        carregarTabela();
+    };
+</script>
+
+
+<script>
+    // Verifica se o localStorage está disponível no navegador
+    if (typeof(Storage) !== "undefined") {
+        console.log("localStorage is available");
+    } else {
+        console.log("localStorage is not available");
+    }
+</script>
+
 </body>
 </html>
