@@ -20,6 +20,9 @@
             margin: 20px 0;
         }
     </style>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+
 </head>
 <body>
     <h2>Quadra 1 - Coberta</h2>
@@ -283,5 +286,75 @@
         document.getElementById("valor").value = "";
     }
 </script>
+
+<script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyARV9a_z2gzWHJ_I9hTxCM90ytvA_7qo0Y",
+        authDomain: "agenda-5ce95.firebaseapp.com",
+        projectId: "agenda-5ce95",
+        storageBucket: "agenda-5ce95.appspot.com",
+        messagingSenderId: "852007565195",
+        appId: "1:852007565195:web:d7bd789d140858f53f618e"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+</script>
+
+<script>
+function atualizarTabela() {
+    // Obtém os valores selecionados no formulário
+    var dia = document.getElementById("dia").value;
+    var hora = document.getElementById("hora").value;
+    var valor = document.getElementById("valor").value;
+
+    // Verifica se o valor foi preenchido
+    if (!valor) {
+        alert("Por favor, insira um valor.");
+        return;  // Impede que o código continue se o valor estiver vazio
+    }
+
+    // Ajusta o índice da linha (horário) e da coluna (dia)
+    var linhaTabela = parseInt(hora);  // A linha corresponde ao horário
+    var colunaTabela = parseInt(dia);  // A coluna corresponde ao dia
+
+    // Atualiza a célula correspondente na tabela com o valor inserido
+    document.getElementById("tabelaQuadra").rows[linhaTabela + 1].cells[colunaTabela].innerText = valor;
+
+    // Limpa o campo de valor para a próxima inserção
+    document.getElementById("valor").value = "";
+
+    // Salva o agendamento no Firebase Realtime Database
+    const agendamento = {
+        dia: dia,
+        hora: hora,
+        valor: valor
+    };
+
+    firebase.database().ref('agendamentos').push(agendamento)
+    .then(() => {
+        console.log('Agendamento salvo com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao salvar agendamento: ', error);
+    });
+}
+</script>
+
+<script>
+firebase.database().ref('agendamentos').on('value', (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        var agendamento = childSnapshot.val();
+        var linhaTabela = parseInt(agendamento.hora);
+        var colunaTabela = parseInt(agendamento.dia);
+        
+        document.getElementById("tabelaQuadra").rows[linhaTabela + 1].cells[colunaTabela].innerText = agendamento.valor;
+    });
+});
+</script>
+
+
 </body>
 </html>
