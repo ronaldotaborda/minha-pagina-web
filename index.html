@@ -20,6 +20,10 @@
             margin: 20px 0;
         }
     </style>
+    <!-- Firebase App (necessário) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <!-- Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </head>
 <body>
     <h2>Quadra 1 - Coberta</h2>
@@ -56,7 +60,7 @@
             </select>
             <label for="valor">Valor:</label>
             <input type="text" id="valor" placeholder="Insira o valor">
-            <button type="button" onclick="atualizarTabela()">Adicionar</button>
+            <button type="button" onclick="adicionarDados()">Adicionar</button>
         </form>
     </div>
     <table id="tabelaQuadra">
@@ -82,206 +86,99 @@
             <th>Domingo</th>
             <th></th>
         </tr>
-        <tr>
-            <td>07:00 - 08:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>07:00 - 08:00</td>
-        </tr>
-        <tr>
-            <td>08:00 - 09:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>08:00 - 09:00</td>
-        </tr>
-        <tr>
-            <td>09:00 - 10:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>09:00 - 10:00</td>
-        </tr>
-        <tr>
-            <td>10:00 - 11:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>10:00 - 11:00</td>
-        </tr>
-        <tr>
-            <td>11:00 - 12:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>11:00 - 12:00</td>
-        </tr>
-        <tr>
-            <td>12:00 - 13:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>12:00 - 13:00</td>
-        </tr>
-        <tr>
-            <td>13:00 - 14:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>13:00 - 14:00</td>
-        </tr>
-        <tr>
-            <td>14:00 - 15:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>14:00 - 15:00</td>
-        </tr>
-        <tr>
-            <td>15:00 - 16:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>15:00 - 16:00</td>
-        </tr>
-        <tr>
-            <td>16:00 - 17:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>16:00 - 17:00</td>
-        </tr>
-        <tr>
-            <td>17:00 - 18:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>17:00 - 18:00</td>
-        </tr>
-        <tr>
-            <td>18:00 - 19:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>18:00 - 19:00</td>
-        </tr>
-        <tr>
-            <td>19:00 - 20:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>19:00 - 20:00</td>
-        </tr>
-        <tr>
-            <td>20:00 - 21:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>20:00 - 21:00</td>
-        </tr>
-        <tr>
-            <td>21:00 - 22:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>21:00 - 22:00</td>
-        </tr>
-        <tr>
-            <td>22:00 - 23:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>22:00 - 23:00</td>
-        </tr>
+        <!-- Linhas da tabela -->
+        <tr><td>07:00 - 08:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>07:00 - 08:00</td></tr>
+        <tr><td>08:00 - 09:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>08:00 - 09:00</td></tr>
+        <tr><td>09:00 - 10:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>09:00 - 10:00</td></tr>
+        <tr><td>10:00 - 11:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>10:00 - 11:00</td></tr>
+        <tr><td>11:00 - 12:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>11:00 - 12:00</td></tr>
+        <tr><td>12:00 - 13:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>12:00 - 13:00</td></tr>
+        <tr><td>13:00 - 14:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>13:00 - 14:00</td></tr>
+        <tr><td>14:00 - 15:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>14:00 - 15:00</td></tr>
+        <tr><td>15:00 - 16:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>15:00 - 16:00</td></tr>
+        <tr><td>16:00 - 17:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>16:00 - 17:00</td></tr>
+        <tr><td>17:00 - 18:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>17:00 - 18:00</td></tr>
+        <tr><td>18:00 - 19:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>18:00 - 19:00</td></tr>
+        <tr><td>19:00 - 20:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>19:00 - 20:00</td></tr>
+        <tr><td>20:00 - 21:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>20:00 - 21:00</td></tr>
+        <tr><td>21:00 - 22:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>21:00 - 22:00</td></tr>
+        <tr><td>22:00 - 23:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>22:00 - 23:00</td></tr>
     </table>
+    
     <script>
-    function atualizarTabela() {
-        // Obtém os valores selecionados no formulário
-        var dia = document.getElementById("dia").value;
-        var hora = document.getElementById("hora").value;
-        var valor = document.getElementById("valor").value;
+        // Configuração do Firebase
+        const firebaseConfig = {
+         apiKey: "AIzaSyAwOD-lKJitfnGiHz_TCu-hIKL3EXjFKnw",
+         authDomain: "clube-olimpico-agenda.firebaseapp.com",
+         projectId: "clube-olimpico-agenda",
+         storageBucket: "clube-olimpico-agenda.appspot.com",
+         messagingSenderId: "71214934594",
+         appId: "1:71214934594:web:004d7e17db761197ed5bdb",
+         measurementId: "G-C845MDX25V"
+        };
 
-        // Verifica se o valor foi preenchido
-        if (!valor) {
-            alert("Por favor, insira um valor.");
-            return;  // Impede que o código continue se o valor estiver vazio
+        // Inicializa o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(); // Inicializa o Firestore
+
+        // Função para salvar dados no Firestore
+        function salvarDados(dia, hora, valor) {
+            db.collection("minhaColecao").add({
+                dia: dia,
+                hora: hora,
+                valor: valor
+            })
+            .then(() => {
+                console.log("Dados salvos com sucesso!");
+                carregarTabela(); // Atualiza a tabela após salvar
+            })
+            .catch((error) => {
+                console.error("Erro ao salvar dados: ", error);
+            });
         }
 
-        // Ajusta o índice da linha (horário) e da coluna (dia)
-        var linhaTabela = parseInt(hora);  // A linha corresponde ao horário
-        var colunaTabela = parseInt(dia);  // A coluna corresponde ao dia
+        // Função para adicionar dados e salvar no Firestore
+        function adicionarDados() {
+            var dia = document.getElementById("dia").value;
+            var hora = document.getElementById("hora").value;
+            var valor = document.getElementById("valor").value;
 
-        // Atualiza a célula correspondente na tabela com o valor inserido
-        document.getElementById("tabelaQuadra").rows[linhaTabela + 1].cells[colunaTabela].innerText = valor;
+            if (!valor) {
+                alert("Por favor, insira um valor.");
+                return;
+            }
 
-        // Limpa o campo de valor para a próxima inserção
-        document.getElementById("valor").value = "";
-    }
-</script>
+            // Salva os dados no Firestore
+            salvarDados(dia, hora, valor);
+
+            // Limpa o campo de valor para a próxima inserção
+            document.getElementById("valor").value = "";
+        }
+
+        // Função para carregar os dados do Firestore na tabela
+        function carregarTabela() {
+            db.collection("minhaColecao").get().then((querySnapshot) => {
+                // Limpa a tabela antes de carregar novos dados
+                const tabela = document.getElementById("tabelaQuadra");
+                for (let i = 1; i < tabela.rows.length; i++) {
+                    for (let j = 1; j < tabela.rows[i].cells.length; j++) {
+                        tabela.rows[i].cells[j].innerText = ""; // Limpa a célula
+                    }
+                }
+                // Preenche a tabela com os dados recuperados
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const linhaTabela = parseInt(data.hora);
+                    const colunaTabela = parseInt(data.dia);
+                    tabela.rows[linhaTabela].cells[colunaTabela].innerText = data.valor;
+                });
+            });
+        }
+
+        // Carrega os dados do Firestore ao iniciar a página
+        window.onload = function() {
+            carregarTabela();
+        };
+    </script>
 </body>
 </html>
